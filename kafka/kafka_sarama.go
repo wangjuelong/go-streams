@@ -156,7 +156,7 @@ func NewKafkaSink(addrs []string, config *sarama.Config, topic string) (*KafkaSi
 		make(chan interface{}),
 	}
 	go sink.init()
-	return sink
+	return sink, nil
 }
 
 // init starts the main loop
