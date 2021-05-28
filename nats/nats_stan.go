@@ -12,7 +12,6 @@ import (
 	stan "github.com/nats-io/stan.go"
 	"github.com/wangjuelong/go-streams"
 	"github.com/wangjuelong/go-streams/flow"
-	"github.com/wangjuelong/go-streams/util"
 )
 
 // NatsSource connector
@@ -61,7 +60,10 @@ func (ns *NatsSource) init() {
 			sub, err := ns.conn.Subscribe(t, func(msg *stan.Msg) {
 				ns.out <- msg
 			}, ns.subscriptionType)
-			util.Check(err)
+			if err != nil {
+				log.Println(err)
+				return
+			}
 			log.Println(fmt.Sprintf("NATS source subscribed to topic %s", t))
 			ns.subscriptions = append(ns.subscriptions, sub)
 		}(topic)
@@ -95,7 +97,10 @@ func (ns *NatsSource) awaitCleanup() {
 				ns.wg.Add(1)
 				defer ns.wg.Done()
 				err := sub.Unsubscribe()
-				util.Check(err)
+				if err != nil {
+					log.Println(err)
+					return
+				}
 			}(s)
 		}
 	default:
@@ -138,10 +143,16 @@ func (ns *NatsSink) init() {
 		switch m := msg.(type) {
 		case *stan.Msg:
 			err := ns.conn.Publish(ns.topic, m.Data)
-			util.Check(err)
+			if err != nil {
+				log.Println(err)
+				return
+			}
 		case []byte:
 			err := ns.conn.Publish(ns.topic, m)
-			util.Check(err)
+			if err != nil {
+				log.Println(err)
+				return
+			}
 		default:
 			log.Printf("Unsupported NATS message publish type: %v", m)
 		}

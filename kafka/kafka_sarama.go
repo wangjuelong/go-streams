@@ -11,7 +11,6 @@ import (
 	"github.com/Shopify/sarama"
 	"github.com/wangjuelong/go-streams"
 	"github.com/wangjuelong/go-streams/flow"
-	"github.com/wangjuelong/go-streams/util"
 )
 
 // KafkaSource connector
@@ -27,9 +26,11 @@ type KafkaSource struct {
 
 // NewKafkaSource returns a new KafkaSource instance
 func NewKafkaSource(ctx context.Context, addrs []string, groupID string,
-	config *sarama.Config, topics ...string) *KafkaSource {
+	config *sarama.Config, topics ...string) (*KafkaSource, error) {
 	consumerGroup, err := sarama.NewConsumerGroup(addrs, groupID, config)
-	util.Check(err)
+	if err != nil {
+		return nil, err
+	}
 	out := make(chan interface{})
 	cctx, cancel := context.WithCancel(ctx)
 
@@ -44,7 +45,7 @@ func NewKafkaSource(ctx context.Context, addrs []string, groupID string,
 	}
 
 	go sink.init()
-	return sink
+	return sink, nil
 }
 
 func (ks *KafkaSource) claimLoop() {
@@ -144,9 +145,11 @@ type KafkaSink struct {
 }
 
 // NewKafkaSink returns a new KafkaSink instance
-func NewKafkaSink(addrs []string, config *sarama.Config, topic string) *KafkaSink {
+func NewKafkaSink(addrs []string, config *sarama.Config, topic string) (*KafkaSink, error) {
 	producer, err := sarama.NewSyncProducer(addrs, config)
-	util.Check(err)
+	if err != nil {
+		return nil, err
+	}
 	sink := &KafkaSink{
 		producer,
 		topic,
