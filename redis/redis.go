@@ -5,8 +5,8 @@ import (
 	"log"
 
 	"github.com/go-redis/redis"
-	"github.com/reugn/go-streams"
-	"github.com/reugn/go-streams/flow"
+	"github.com/wangjuelong/go-streams"
+	"github.com/wangjuelong/go-streams/flow"
 )
 
 // RedisSource is a Redis Pub/Sub Source

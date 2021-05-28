@@ -3,7 +3,7 @@ package flow
 import (
 	"sync"
 
-	"github.com/reugn/go-streams"
+	"github.com/wangjuelong/go-streams"
 )
 
 // DoStream streams data from the outlet to inlet.

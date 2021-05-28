@@ -8,9 +8,9 @@ import (
 	"testing"
 	"time"
 
-	ext "github.com/reugn/go-streams/extension"
-	"github.com/reugn/go-streams/flow"
-	"github.com/reugn/go-streams/util"
+	ext "github.com/wangjuelong/go-streams/extension"
+	"github.com/wangjuelong/go-streams/flow"
+	"github.com/wangjuelong/go-streams/util"
 )
 
 var toUpper = func(in interface{}) interface{} {

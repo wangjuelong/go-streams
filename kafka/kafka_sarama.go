@@ -9,9 +9,9 @@ import (
 	"syscall"
 
 	"github.com/Shopify/sarama"
-	"github.com/reugn/go-streams"
-	"github.com/reugn/go-streams/flow"
-	"github.com/reugn/go-streams/util"
+	"github.com/wangjuelong/go-streams"
+	"github.com/wangjuelong/go-streams/flow"
+	"github.com/wangjuelong/go-streams/util"
 )
 
 // KafkaSource connector

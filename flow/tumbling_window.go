@@ -4,7 +4,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/reugn/go-streams"
+	"github.com/wangjuelong/go-streams"
 )
 
 // TumblingWindow assigns each element to a window of a specified window size.

@@ -4,7 +4,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/reugn/go-streams"
+	"github.com/wangjuelong/go-streams"
 )
 
 // ThrottleMode defines the Throttler behavior on buffer overflow.

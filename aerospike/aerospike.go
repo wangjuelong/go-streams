@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"encoding/json"
+	"github.com/wangjuelong/go-streams"
 	"log"
 	"os"
 	"os/signal"
@@ -11,8 +12,7 @@ import (
 	"time"
 
 	aero "github.com/aerospike/aerospike-client-go"
-	"github.com/reugn/go-streams"
-	"github.com/reugn/go-streams/flow"
+	"github.com/wangjuelong/go-streams/flow"
 )
 
 // AerospikeProperties is the Aerospike connector configuration properties
